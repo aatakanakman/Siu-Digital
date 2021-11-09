@@ -44,6 +44,22 @@ export default class UserController {
     });
   }
 
+  // Update all user fields
+  //It updates a new field from the Body for all collection members.
+  @Put('/add/new_field')
+  async addField(@Res() res, @Body() key: Record<string, unknown>) {
+    try {
+      await this.UserService.addNewField(key);
+      return res
+        .status(HttpStatus.OK)
+        .json({ message: 'Add new field success', key });
+    } catch (err) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        err,
+      });
+    }
+  }
+
   //Delete User Endpoint
   @Delete('/:id')
   async delete(@Res() response, @Param('id') id) {

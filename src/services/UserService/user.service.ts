@@ -33,4 +33,13 @@ export default class UserService {
   async delete(id): Promise<any> {
     return await this.userModel.findByIdAndRemove(id);
   }
+  //Update all user with new key.
+  async addNewField(key: Record<string, unknown>) {
+    console.log(key);
+    return await this.userModel.updateMany(
+      {},
+      { $set: key },
+      { upsert: true, strict: false },
+    );
+  }
 }
